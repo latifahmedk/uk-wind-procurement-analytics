@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: uk-wind-procurement-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ELEXON_BASE_URL
+        value: https://data.elexon.co.uk/bmrs/api/v1
+      - key: DEFAULT_DECISION_CUTOFF
+        value: "11:00"
+      - key: ALLOW_DEMO_FALLBACK
+        value: "true"
+      - key: CORS_ORIGINS
+        value: '["*"]'
